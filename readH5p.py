@@ -8,9 +8,13 @@ urls = [
          "url": "https://raw.githubusercontent.com/call-learning/H5P.SoftSkills.H5P/master/bachelor-informational/content/content.json"}
         ]
 
-import json, requests
+import json, requests, os
 
 # get content.json 
+for path in ["contents", "outs"]:
+    isExist = os.path.exists(path)
+    if not isExist:
+      os.makedirs(path)
 for url in urls:
     r = requests.get(url['url'], allow_redirects=True)
     open('contents/%s' % url['label'], 'wb').write(r.content)
